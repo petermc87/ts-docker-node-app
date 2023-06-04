@@ -1,0 +1,9 @@
+{
+  "extends": [
+    //The recommended settings from eslint and for typescript.
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"]
+}
