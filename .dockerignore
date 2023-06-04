@@ -1,0 +1,6 @@
+# Cache directory - dont need!
+.pnpm-store
+# Vs code extensions - dont need!
+.vscode
+dist
+node-modules

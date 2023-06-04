@@ -1,0 +1,28 @@
+## COMPOSING MULTIPLE SERVICES
+
+# Sercices is a tag that is required in docker.
+services:
+  # You can call this service what you want!
+  backend:
+    # Build everything in our current directory: this is in the dockerFile
+    build: .
+    # Mapping port on docker to port on machine.
+    ports:
+      - 5000:5000
+        # This is an alternative port setup for debugiing purposes in vscode or Chrome.
+      - 9229:9229
+    volumes:
+      # If there are changes in the current directory on the machine, it instantly gets mapped to the directory (of the same)
+      # specificed in the dockerFile.
+      - .:/usr/src/app
+      # We are not mapping from local machine to docker. Node modules is its own entity on docker.
+      - /usr/src/app/node_modules
+      # Local cache of pnpm in docker, it has not relation to the machine.
+      - /usr/src/app/.pnpm-store
+    # Runs the command in the package.json scripts. This will build the backand and start it
+    # It will override the CMD command in the dockerFile.
+    command: pnpm start:docker
+    environment:
+      # This will override the dedault port in the index.ts. process.env.PORT matches with whats
+      # specificed here.
+      PORT: 5000
