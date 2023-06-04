@@ -1,0 +1,19 @@
+{
+    "env":{
+        //The pinned version form Volta.
+        "target":{
+            "node": 18
+        }
+    },
+    "jsc":{
+        "parser":{
+            "syntax":"typescript"
+        }
+    },
+    "module":{
+        "type":"commonjs"
+    },
+    //Creates source maps when it is converted form TS to JS.
+    //This is so that debugger tools can be used as a feature, hoisted while containerized in docker.
+    "sourceMaps":"inline"
+}
