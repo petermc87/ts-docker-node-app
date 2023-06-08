@@ -15,6 +15,11 @@ COPY package.json pnpm-lock.yaml ./
 # Use the current version of pnpm. Frozen is to ensure no updates to pnpm will have an effect.
 RUN pnpm install --frozen-lockfile
 
+# Copying the schem.prisma local file to the ./prisma folder in Docker.
+COPY prisma/schema.prisma ./prisma
+# Re-generating the client when there is a change to the models or settings 
+RUN pnpx prisma generate
+
 # Copy everything else besides files that are specified.
 # Copy from current directory into the docker build
 COPY . .

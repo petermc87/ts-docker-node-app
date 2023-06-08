@@ -2,6 +2,18 @@
 
 # Sercices is a tag that is required in docker.
 services:
+  postgres:
+    # We are not building our own postgres image, instead we will use a prebuilt version.
+    # Running this on alpine linux - a thinner version of linux!
+    image: postgres:15-alpine
+    # Mapping ports between docker and postgres. 5432 is the default port!
+    ports:
+      - 5432:5432
+    environment:
+      # Name your project here. Make sure to name it at the stage its on, for example, dev would be development, test would be test
+      POSTGRES_DB: webapp_dev
+      # Needs to be set!
+      POSTGRES_HOST_AUTH_METHOD: trust
   # You can call this service what you want!
   backend:
     # Build everything in our current directory: this is in the dockerFile
@@ -22,7 +34,15 @@ services:
     # Runs the command in the package.json scripts. This will build the backand and start it
     # It will override the CMD command in the dockerFile.
     command: pnpm start:docker
+    # You want to run postgres first before the backend. This means that the backend cant run with pg running first
+    depends_on:
+      - postgres
     environment:
+      # Connecting postgres with Node. We can remove 5432 if that is the port numbers
+      # DATABASE_URL: postgres://postgres@postgres:5432/webapp_dev - alternative way to write if you want to change port.
+      #             Databse             Host
+      #             Flavor     User     (DNS name, line 5!)
+      DATABASE_URL: postgres://postgres@postgres/webapp_dev
       # This will override the dedault port in the index.ts. process.env.PORT matches with whats
       # specificed here.
       PORT: 5000
