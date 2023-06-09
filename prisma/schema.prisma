@@ -19,13 +19,16 @@ model Post {
   // You dont have to create content - example would be a draft post!
   content String?
   //It will be null if not published but will have a date and time if it is.
-  publishedAt DateTime?
+  publishedAt DateTime? 
   //The default creation time will be now.
   createdAt DateTime @default(now())
   //Prisma will auto update this time stamp.
   updatedAt DateTime @updatedAt
 
+  //Adding an index to published at.  
+  @@index([publishedAt])
   //Database table.
   @@map("posts")
+
 }
 
