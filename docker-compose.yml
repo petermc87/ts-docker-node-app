@@ -8,7 +8,7 @@ services:
     image: postgres:15-alpine
     # Mapping ports between docker and postgres. 5432 is the default port!
     ports:
-      - 5431:5431
+      - 5433:5433
     environment:
       # Name your project here. Make sure to name it at the stage its on, for example, dev would be development, test would be test
       POSTGRES_DB: webapp_dev
@@ -42,7 +42,7 @@ services:
       # DATABASE_URL: postgres://postgres@postgres:5432/webapp_dev - alternative way to write if you want to change port.
       #             Databse             Host
       #             Flavor     User     (DNS name, line 5!)
-      DATABASE_URL: postgres://postgres@postgres:5431/webapp_dev
+      DATABASE_URL: postgres://postgres@postgres/webapp_dev
       # This will override the dedault port in the index.ts. process.env.PORT matches with whats
       # specificed here.
       PORT: 5000
