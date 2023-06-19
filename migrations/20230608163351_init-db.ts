@@ -3,7 +3,7 @@ import { Knex } from 'knex';
 
 // To add columns or change things
 export async function up(knex: Knex): Promise<void> {
-  await knex.schema.createTable('post', (table) => {
+  await knex.schema.createTable('posts', (table) => {
     //We want to craete specific length strings.
     // Make it a 16 character id
     table.specificType('id', 'CHAR(16)').primary();
